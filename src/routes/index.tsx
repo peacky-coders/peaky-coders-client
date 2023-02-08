@@ -9,7 +9,6 @@ export const AppRoutes = () => {
       <div>
         <Link to='/'>Home</Link>
         <Link to='/profile'>Profile</Link>
-        <Link to='/article/1'>Article</Link>
       </div>
       <Routes>
         <Route path={E_Routes.article} element={<Page.Article />} />
