@@ -1,6 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 import { useLayoutEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+
+
+
+import { UserArticle } from 'components/ArticleCard'
 
 import { t } from 'languages'
 import { I_Article } from 'models/article'
@@ -37,14 +40,7 @@ export const Home = () => {
         <div>Загрузка...</div>
       ) : articles.length ? (
         <div>
-          {articles.map((article) => (
-            <div key={article.id}>
-              <img src={article.image} alt='article' />
-              <span>{article.title}</span>
-              <span>{article.text}</span>
-              <Link to={`article/${article.id}`}>перейти</Link>
-            </div>
-          ))}
+          <UserArticle articles={articles} />
           <button disabled={isLoading} onClick={handleLoadMore}>
             Догрузить
           </button>
