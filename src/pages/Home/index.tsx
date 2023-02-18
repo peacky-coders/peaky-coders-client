@@ -1,7 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 import { useLayoutEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 
+import * as S from './styles'
+
+import { ArticleCard } from 'components/ArticleCard'
 import { t } from 'languages'
 import { I_Article } from 'models/article'
 import { articlesAPI } from 'services'
@@ -18,12 +20,17 @@ export const Home = () => {
   }
 
   const { isLoading, mutate } = useMutation({
-    ...articlesAPI.getArticles(),
+    mutationFn: articlesAPI.getArticles,
     onSuccess: handleMutationGetArticlesSuccess,
+    mutationKey: ['articles'],
   })
 
   useLayoutEffect(() => {
     mutate({ page: 1, limit: articlesLimit })
+    return () => {
+      setArticles([])
+      setArticlesPage(1)
+    }
   }, [mutate])
 
   const handleLoadMore = () => {
@@ -37,17 +44,14 @@ export const Home = () => {
         <div>Загрузка...</div>
       ) : articles.length ? (
         <div>
-          {articles.map((article) => (
-            <div key={article.id}>
-              <img src={article.image} alt='article' />
-              <span>{article.title}</span>
-              <span>{article.text}</span>
-              <Link to={`article/${article.id}`}>перейти</Link>
-            </div>
-          ))}
-          <button disabled={isLoading} onClick={handleLoadMore}>
-            Догрузить
-          </button>
+          <S.Container>
+            {articles.map((article) => (
+              <ArticleCard key={article.id} article={article} />
+            ))}
+            <button disabled={isLoading} onClick={handleLoadMore}>
+              Догрузить
+            </button>
+          </S.Container>
         </div>
       ) : (
         <div>Ошибка</div>
