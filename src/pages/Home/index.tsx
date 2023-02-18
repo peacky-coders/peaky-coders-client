@@ -1,10 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 import { useLayoutEffect, useState } from 'react'
 
+import * as S from './styles'
 
-
-import { UserArticle } from 'components/ArticleCard'
-
+import { ArticleCard } from 'components/ArticleCard'
 import { t } from 'languages'
 import { I_Article } from 'models/article'
 import { articlesAPI } from 'services'
@@ -27,6 +26,10 @@ export const Home = () => {
 
   useLayoutEffect(() => {
     mutate({ page: 1, limit: articlesLimit })
+    return () => {
+      setArticles([])
+      setArticlesPage(1)
+    }
   }, [mutate])
 
   const handleLoadMore = () => {
@@ -40,10 +43,14 @@ export const Home = () => {
         <div>Загрузка...</div>
       ) : articles.length ? (
         <div>
-          <UserArticle articles={articles} />
-          <button disabled={isLoading} onClick={handleLoadMore}>
-            Догрузить
-          </button>
+          <S.Container>
+            {articles.map((article) => (
+              <ArticleCard key={article.id} article={article} />
+            ))}
+            <button disabled={isLoading} onClick={handleLoadMore}>
+              Догрузить
+            </button>
+          </S.Container>
         </div>
       ) : (
         <div>Ошибка</div>

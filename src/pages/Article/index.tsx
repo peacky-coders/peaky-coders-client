@@ -8,15 +8,13 @@ import { articlesAPI } from 'services'
 export const Article = () => {
   const { articleId } = useParams() as T_Params
 
-  const { data, isLoading } = useQuery(articlesAPI.getArticle({ articleId }))
-
-  console.log(data)
+  const { data, isFetching } = useQuery(articlesAPI.getArticle({ articleId }))
 
   return (
     <div>
       {t('page.article.title')}
 
-      <div>{isLoading ? 'Загрузка...' : JSON.stringify(data, null, 2)}</div>
+      <div>{isFetching ? 'Загрузка...' : JSON.stringify(data, null, 2)}</div>
     </div>
   )
 }

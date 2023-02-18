@@ -1,18 +1,23 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-  background-color: grey;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
+export const Card = styled.div`
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  min-width: 556px;
+  max-width: 556px;
+  height: 380px;
+  padding: 10px;
+
+  background-color: grey;
+  border-radius: 10px;
 `
 
 export const Title = styled.span`
-  font-weight: 500;
   font-size: 40px;
+  font-weight: 500;
   color: white;
   text-align: center;
 `
@@ -22,12 +27,7 @@ export const Avatar = styled.img`
 `
 
 export const ArticleText = styled.span`
-  font-weight: 300;
   font-size: 14px;
+  font-weight: 300;
   color: #000;
-`
-
-export const Parent = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
 `

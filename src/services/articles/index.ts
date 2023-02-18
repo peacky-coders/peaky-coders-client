@@ -12,6 +12,7 @@ export const articlesAPI = {
       )
       return res.json()
     },
+    mutationKey: ['articles'],
   }),
   getArticle: ({ articleId }: T_GetArticleParams) => ({
     queryKey: ['article'],
