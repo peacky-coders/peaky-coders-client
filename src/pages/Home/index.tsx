@@ -20,8 +20,9 @@ export const Home = () => {
   }
 
   const { isLoading, mutate } = useMutation({
-    ...articlesAPI.getArticles(),
+    mutationFn: articlesAPI.getArticles,
     onSuccess: handleMutationGetArticlesSuccess,
+    mutationKey: ['articles'],
   })
 
   useLayoutEffect(() => {
