@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import React, { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState, useEffect } from 'react'
 
 import * as S from './styles'
 
@@ -25,7 +25,7 @@ export const Home = () => {
     mutationKey: ['articles'],
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
