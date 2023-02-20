@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { useLayoutEffect, useState, useEffect } from 'react'
+import { useLayoutEffect, useState, useEffect, useCallback } from 'react'
 
 import * as S from './styles'
 
@@ -25,22 +25,21 @@ export const Home = () => {
     mutationKey: ['articles'],
   })
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-  const handleLoadMore = () => {
-    mutate({ limit: articlesLimit, page: articlesPage + 1 })
-  }
-
-  function handleScroll() {
+  const handleScroll = useCallback(() => {
     if (
       window.innerHeight + document.documentElement.scrollTop !==
       document.documentElement.offsetHeight
-    )
+    ) {
       return
-    handleLoadMore()
-  }
+    }
+
+    mutate({ limit: articlesLimit, page: articlesPage })
+  }, [articlesPage, mutate])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
 
   useLayoutEffect(() => {
     mutate({ page: 1, limit: articlesLimit })
