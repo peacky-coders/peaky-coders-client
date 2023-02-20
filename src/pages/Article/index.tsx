@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 
+import * as S from '../../components/ArticleCard/styles'
+
 import { t } from 'languages'
 import { T_Params } from 'models/routes'
 import { articlesAPI } from 'services'
@@ -17,7 +19,21 @@ export const Article = () => {
     <div>
       {t('page.article.title')}
 
-      <div>{isLoading ? 'Загрузка...' : JSON.stringify(data, null, 2)}</div>
+      <div>
+        {isLoading ? (
+          'Загрузка...'
+        ) : data ? (
+          <S.Card key={data.id}>
+            <S.Avatar src={data.image} alt='article' />
+            <S.Title>{data.title}</S.Title>
+            <S.ArticleText>{data.text}</S.ArticleText>
+          </S.Card>
+        ) : (
+          <p>Ошибка</p>
+        )}
+      </div>
     </div>
   )
 }
+
+// JSON.stringify(data, null, 2)
