@@ -14,6 +14,10 @@ export const AppRoutes = () => {
     openModal(E_Modal.auth)
   }
 
+  const handleLogoutProfile = () => {
+    openModal(E_Modal.logout)
+  }
+
   return (
     <>
       <div>
@@ -21,7 +25,7 @@ export const AppRoutes = () => {
         {isAuth ? (
           <>
             <Link to='/profile'>Profile</Link>
-            <button>Logout</button>
+            <button onClick={handleLogoutProfile}>Logout</button>
           </>
         ) : (
           <button onClick={handleOpenAuthModal}>Login</button>
