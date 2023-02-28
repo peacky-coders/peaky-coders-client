@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState, useEffect, useCallback } from 'react'
 
 import * as S from './styles'
 
@@ -25,6 +25,22 @@ export const Home = () => {
     mutationKey: ['articles'],
   })
 
+  const handleScroll = useCallback(() => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+      document.documentElement.offsetHeight
+    ) {
+      return
+    }
+
+    mutate({ limit: articlesLimit, page: articlesPage })
+  }, [articlesPage, mutate])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
   useLayoutEffect(() => {
     mutate({ page: 1, limit: articlesLimit })
     return () => {
@@ -32,10 +48,6 @@ export const Home = () => {
       setArticlesPage(1)
     }
   }, [mutate])
-
-  const handleLoadMore = () => {
-    mutate({ limit: articlesLimit, page: articlesPage + 1 })
-  }
 
   return (
     <div>
@@ -48,9 +60,9 @@ export const Home = () => {
             {articles.map((article) => (
               <ArticleCard key={article.id} article={article} />
             ))}
-            <button disabled={isLoading} onClick={handleLoadMore}>
+            {/* <button disabled={isLoading} onClick={handleLoadMore}>
               Догрузить
-            </button>
+            </button> */}
           </S.Container>
         </div>
       ) : (
