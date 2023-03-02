@@ -9,6 +9,7 @@ export const Card = styled.div`
   min-width: 556px;
   max-width: 556px;
   height: 380px;
+  margin: auto;
   padding: 10px;
 
   background-color: grey;

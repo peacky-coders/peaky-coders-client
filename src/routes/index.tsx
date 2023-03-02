@@ -37,6 +37,7 @@ export const AppRoutes = () => {
         <Route path={E_Routes.article} element={<Page.Article />} />
         <Route path={E_Routes.home} element={<Page.Home />} />
         <Route element={<ProtectedRoute />}>
+          <Route path={E_Routes.editor} element={<Page.Editor />} />
           <Route path={E_Routes.profile} element={<Page.Profile />} />
         </Route>
       </Routes>
