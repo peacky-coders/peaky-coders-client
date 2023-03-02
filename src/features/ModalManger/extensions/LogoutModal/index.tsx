@@ -4,18 +4,24 @@ import { useModalManagerStore } from 'features/ModalManger/store'
 import { useProfileStore } from 'store/profile'
 export const LogoutModal = () => {
   const closeLastModal = useModalManagerStore((state) => state.closeLastModal)
-  const isLogout = useProfileStore((state) => state.logout)
-  const isLogoutFinal = () => {
+  const logout = useProfileStore((state) => state.logout)
+
+  const handleCloseModal = () => {
     closeLastModal()
-    isLogout()
   }
+
+  const handleLogout = () => {
+    handleCloseModal()
+    logout()
+  }
+
   return (
     <S.Modal>
-      <button>X</button>
+      <button onClick={handleCloseModal}>X</button>
       <div>LogoutModal</div>
       <div>Вы точно хотите выйти из аккаунта?</div>
-      <button onClick={isLogoutFinal}>Подтверждаю</button>
-      <button onClick={closeLastModal}>Отмена</button>
+      <button onClick={handleLogout}>Подтверждаю</button>
+      <button onClick={handleCloseModal}>Отмена</button>
     </S.Modal>
   )
 }
