@@ -34,7 +34,9 @@ export const AppRoutes = () => {
       <Routes>
         <Route path={E_Routes.article} element={<Page.Article />} />
         <Route path={E_Routes.home} element={<Page.Home />} />
-        <Route path={E_Routes.profile} element={<Page.Profile />} />
+        <Route path={E_Routes.profile} element={<Page.Profile />}>
+          <Route path={E_Routes.editor} element={<Page.Editor />} />
+        </Route>
       </Routes>
     </>
   )
