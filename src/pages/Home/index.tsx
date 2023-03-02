@@ -34,8 +34,6 @@ export const Home = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
-  console.log('articlesPage', articlesPage)
-
   return (
     <div>
       {t('page.home.title')}
