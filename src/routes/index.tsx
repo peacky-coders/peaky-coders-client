@@ -1,5 +1,7 @@
 import { Link, Route, Routes } from 'react-router-dom'
 
+import { ProtectedRoute } from './ProtectedRoute'
+
 import { E_Modal } from 'features/ModalManger/models'
 import { useModalManagerStore } from 'features/ModalManger/store'
 import { E_Routes } from 'models/routes'
@@ -14,7 +16,7 @@ export const AppRoutes = () => {
     openModal(E_Modal.auth)
   }
 
-  const handleLogoutProfile = () => {
+  const handleOpenLogoutModal = () => {
     openModal(E_Modal.logout)
   }
 
@@ -25,7 +27,7 @@ export const AppRoutes = () => {
         {isAuth ? (
           <>
             <Link to='/profile'>Profile</Link>
-            <button onClick={handleLogoutProfile}>Logout</button>
+            <button onClick={handleOpenLogoutModal}>Logout</button>
           </>
         ) : (
           <button onClick={handleOpenAuthModal}>Login</button>
@@ -34,7 +36,10 @@ export const AppRoutes = () => {
       <Routes>
         <Route path={E_Routes.article} element={<Page.Article />} />
         <Route path={E_Routes.home} element={<Page.Home />} />
-        <Route path={E_Routes.profile} element={<Page.Profile />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path={E_Routes.editor} element={<Page.Editor />} />
+          <Route path={E_Routes.profile} element={<Page.Profile />} />
+        </Route>
       </Routes>
     </>
   )
