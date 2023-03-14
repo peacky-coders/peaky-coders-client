@@ -1,5 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { useState, useEffect, useCallback } from 'react'
+import { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 import * as S from './styles'
 
@@ -10,29 +11,20 @@ import { articlesAPI } from 'services'
 const articlesLimit = 10
 
 export const Home = () => {
-  const [articlesPage, setArticlesPage] = useState(1)
+  const { ref, inView } = useInView()
 
-  const { isFetchingNextPage, data, fetchNextPage, status } = useInfiniteQuery({
-    queryFn: ({ pageParam = 1 }) =>
-      articlesAPI.getArticles({ limit: articlesLimit, page: pageParam }),
+  const { isFetchingNextPage, data, fetchNextPage, status, hasNextPage } = useInfiniteQuery({
+    queryFn: ({ pageParam = '' }) =>
+      articlesAPI.getArticles({ limit: articlesLimit, cursor: pageParam }),
     queryKey: ['articles', 'infinite'],
+    getNextPageParam: (lastPage) => lastPage.at(-1)?.id ?? false,
   })
 
-  const handleScroll = useCallback(() => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight
-    ) {
-      return
-    }
-    setArticlesPage((prev) => ++prev)
-    fetchNextPage({ pageParam: articlesPage + 1 })
-  }, [articlesPage, fetchNextPage])
-
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [handleScroll])
+    if (inView && hasNextPage) {
+      fetchNextPage()
+    }
+  }, [fetchNextPage, hasNextPage, inView])
 
   return (
     <div>
@@ -41,7 +33,7 @@ export const Home = () => {
       {status === 'loading' && <div>Загрузка...</div>}
       {status === 'error' && <div>Ошибка</div>}
       {status === 'success' && (
-        <div>
+        <>
           <S.Container>
             {data.pages.flat().map((article) => (
               <ArticleCard key={article.id} article={article} />
@@ -49,7 +41,8 @@ export const Home = () => {
 
             {isFetchingNextPage && <div>Догрузка...</div>}
           </S.Container>
-        </div>
+          <div ref={ref} />
+        </>
       )}
     </div>
   )

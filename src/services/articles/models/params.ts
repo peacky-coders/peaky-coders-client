@@ -1,6 +1,6 @@
 export type T_GetArticlesParams = {
   limit: number
-  page: number
+  cursor: number
 }
 
 export type T_GetArticleParams = {

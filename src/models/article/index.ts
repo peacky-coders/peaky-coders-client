@@ -1,7 +1,6 @@
 export interface I_Article {
+  id: string
   createdAt: Date
   title: string
-  image: string
-  text: string
-  id: string
+  content: string
 }
