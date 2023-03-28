@@ -10,10 +10,9 @@ interface I_ArticleCardProps {
 
 export const ArticleCard = ({ article }: I_ArticleCardProps) => (
   <S.Card key={article.id}>
-    <S.Avatar src={article.image} alt='article' />
     <S.Title>{article.title}</S.Title>
     <S.ArticleText>
-      {article.text.length >= 300 ? article.text.substring(0, 300) + '...' : article.text}
+      {article.content.length >= 300 ? article.content.substring(0, 300) + '...' : article.content}
     </S.ArticleText>
     <Link to={`article/${article.id}`}>перейти</Link>
   </S.Card>

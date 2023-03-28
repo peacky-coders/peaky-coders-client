@@ -24,9 +24,8 @@ export const Article = () => {
           'Загрузка...'
         ) : data ? (
           <S.Card key={data.id}>
-            <S.Avatar src={data.image} alt='article' />
             <S.Title>{data.title}</S.Title>
-            <S.ArticleText>{data.text}</S.ArticleText>
+            <S.ArticleText>{data.content}</S.ArticleText>
           </S.Card>
         ) : (
           <p>Ошибка</p>
