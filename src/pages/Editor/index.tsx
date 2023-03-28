@@ -16,7 +16,7 @@ export const Editor = () => {
         <S.Title>Автор</S.Title>
         <label htmlFor='articleName'>Название</label>
         <S.Input name='articleName'></S.Input>
-        <label htmlFor='imagine'>Картнка</label>
+        <label htmlFor='imagine'>Изображение</label>
         <S.Input name='imagine'></S.Input>
       </S.Parent>
       <S.Wrapper>
