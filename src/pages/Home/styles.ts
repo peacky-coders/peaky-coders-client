@@ -4,8 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
-  justify-content: center;
+  justify-content: flex-start;
 
-  width: 1200px;
   margin-inline: auto;
 `

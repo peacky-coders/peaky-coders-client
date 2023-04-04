@@ -8,4 +8,7 @@ export default defineConfig({
   esbuild: {
     logOverride: { 'this-is-undefined-in-esm': 'silent' },
   },
+  server: {
+    proxy: {"/api": { changeOrigin: true, target: "http://localhost:3000", rewrite: (path) => path.replace(/^\/api/, '')}}
+  }
 })
