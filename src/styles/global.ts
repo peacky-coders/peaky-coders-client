@@ -4,11 +4,12 @@ export const GlobalStyles = createGlobalStyle`
   html,
   body {
     margin: 0;
-    padding: 0;
     
     font-family: Rubik, sans-serif;
     font-size: 16px;
     font-weight: 400;
+
+    background-color: #EFF2F3;
     
     ::-webkit-scrollbar {
       width: 2px;

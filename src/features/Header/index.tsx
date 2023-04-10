@@ -25,16 +25,18 @@ export const Header = () => {
   return (
     <S.HeaderWrapper>
       <Link to='/'>Peaky Coders</Link>
-      {isAuth ? (
-        <>
-          <Link to='/profile'>Profile</Link>
-          <button onClick={handleOpenLogoutModal}>Logout</button>
-          <span>{email}</span>
-          <img src={avatar} width={50} height={50} alt='avatar' />
-        </>
-      ) : (
-        <button onClick={handleOpenAuthModal}>Login</button>
-      )}
+      <div>
+        {isAuth ? (
+          <>
+            <Link to='/profile'>Profile</Link>
+            <button onClick={handleOpenLogoutModal}>Logout</button>
+            <span>{email}</span>
+            <img src={avatar} width={48} height={48} alt='avatar' />
+          </>
+        ) : (
+          <button onClick={handleOpenAuthModal}>Login</button>
+        )}
+      </div>
     </S.HeaderWrapper>
   )
 }

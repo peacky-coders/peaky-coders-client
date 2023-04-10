@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 
+import avatarMedia from './avatar.png'
+import placeholderMedia from './placeholder.png'
 import * as S from './styles'
 
 import { I_Article } from 'models/article'
@@ -10,10 +12,29 @@ interface I_ArticleCardProps {
 
 export const ArticleCard = ({ article }: I_ArticleCardProps) => (
   <S.Card key={article.id}>
-    <S.Title>{article.title}</S.Title>
-    <S.ArticleText>
-      {article.content.length >= 300 ? article.content.substring(0, 300) + '...' : article.content}
-    </S.ArticleText>
-    <Link to={`article/${article.id}`}>перейти</Link>
+    <Link to={`article/${article.id}`}>
+      <S.Image alt='article' src={placeholderMedia} />
+    </Link>
+
+    <Link to={`article/${article.id}`}>
+      <S.Title>{article.title}</S.Title>
+    </Link>
+    <S.Tags>
+      <span>React</span>
+      <span>Styled Components</span>
+      <span>TypeScript</span>
+    </S.Tags>
+    <S.AuthorWrapper>
+      <S.AuthorAvatar src={avatarMedia} />
+      <div>
+        <div>Yaroslav Webowich</div>
+        <div>11.03.2022</div>
+      </div>
+    </S.AuthorWrapper>
+    <div>
+      <button>Быстрый просмотр</button>
+      <button>Читать позже</button>
+      <button>В избранное</button>
+    </div>
   </S.Card>
 )

@@ -5,10 +5,9 @@ import { useInView } from 'react-intersection-observer'
 import * as S from './styles'
 
 import { ArticleCard } from 'components/ArticleCard'
-import { t } from 'languages'
 import { articlesAPI } from 'services'
 
-const articlesLimit = 10
+const articlesLimit = 12
 
 export const Home = () => {
   const { ref, inView } = useInView()
@@ -28,8 +27,6 @@ export const Home = () => {
 
   return (
     <div>
-      {t('page.home.title')}
-
       {status === 'loading' && <div>Загрузка...</div>}
       {status === 'error' && <div>Ошибка</div>}
       {status === 'success' && (
