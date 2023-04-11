@@ -9,6 +9,7 @@ export default defineConfig({
     logOverride: { 'this-is-undefined-in-esm': 'silent' },
   },
   server: {
-    proxy: {"/api": { changeOrigin: true, target: "http://localhost:3000", rewrite: (path) => path.replace(/^\/api/, '')}}
+    proxy: {"/api": { changeOrigin: true, target: "http://localhost:3000", rewrite: (path) => path.replace(/^\/api/, '')}},
+    host: '127.0.0.1'
   }
 })
